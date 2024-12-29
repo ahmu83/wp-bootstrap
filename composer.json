@@ -1,0 +1,17 @@
+{
+  "name": "ahmadkarim/wp-bootstrap",
+  "autoload": {
+    "psr-4": {
+      "WpBootstrap\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Ahmad Karim",
+      "email": "ahmu83@gmail.com"
+    }
+  ],
+  "require": {
+    "filp/whoops": "^2.16"
+  }
+}
