@@ -1,4 +1,4 @@
 <?php
 
-// WpBootstrap\WpDebug::get_instance();
+WpBootstrap\WpDebug::get_instance();
 

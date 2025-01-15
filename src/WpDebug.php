@@ -8,7 +8,7 @@
  *  ?debug=1 to enable debugging, ?debug=0 to disable.
  */
 
-namespace WpBootstrap\WpDebug;
+namespace WpBootstrap;
 
 class WpDebug {
 
@@ -73,6 +73,8 @@ class WpDebug {
     $this->maybe_start_session();
 
     $debug_toggle = filter_input( INPUT_GET, 'debug', FILTER_VALIDATE_INT );
+
+    // print_r($debug_toggle);exit;
 
     if ( $debug_toggle !== null ) {
 
