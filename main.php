@@ -3,7 +3,8 @@
  * Status of the bootstrap application.
  * If false, all `wpb_inc` functions are disabled.
  */
-define('WPB_ACTIVE', true);
+define( 'WPB_ACTIVE', true );
+define( 'WPB_DIR_NAME', basename(WPB_DIR) );
 
 /**
  * Define the WordPress directory path.
@@ -21,6 +22,61 @@ function wpb_wp_dir($file = '') {
   return wpb_root_dir($file, 1);
 
 }
+
+/**
+ * Generate a URL based on the current URL, optionally adding a file and navigating levels.
+ *
+ * @param string $file  File or path to append to the resulting URL. Defaults to an empty string.
+ * @param int    $level Levels to include from the current URL. Positive adds `$file` to the start,
+ *                      negative adds `$file` to the end. Defaults to 0.
+ * @return string       The generated URL.
+ */
+function wpb_wp_url($file = '', $level = 0) {
+
+  // Determine the protocol
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+
+  // Get the host
+  $host = $_SERVER['HTTP_HOST'] ?? '';
+
+  // Get the current request URI and trim slashes
+  $request_uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+  // Break the URI into parts
+  $path_parts = explode('/', $request_uri);
+
+  // Positive level: Add $file to the start, include specified levels
+  if ($level > 0) {
+
+    $included_parts = array_slice($path_parts, 0, $level);
+    $base_path = implode('/', $included_parts);
+    $url = $protocol . $host . '/' . ltrim($base_path, '/') . '/' . ltrim($file, '/') . '/';
+
+
+  }
+
+  // Negative level: Add $file to the end, include remaining levels
+  elseif ($level < 0) {
+
+    $included_parts = array_slice($path_parts, 0, count($path_parts) + $level);
+    $base_path = implode('/', $included_parts);
+    $url = $protocol . $host . '/' . ltrim($file, '/') . '/' . ltrim($base_path, '/') . '/';
+
+  }
+
+  // Level = 0: Add $file to the root URL
+  else {
+
+    $url = $protocol . $host . '/' . ltrim($file, '/') . '/';
+
+  }
+
+  return $url;
+
+}
+
+
+
 
 /**
  * Get the root directory path.

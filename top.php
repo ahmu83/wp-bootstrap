@@ -1,5 +1,12 @@
 <?php
 
+if (WPB_ACTIVE !== true) {
+
+  return;
+
+}
+
+
 $top_includes = array(
   'vendor/autoload.php',
   'inc/top-constants.php',

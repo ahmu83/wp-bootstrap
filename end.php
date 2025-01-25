@@ -1,5 +1,11 @@
 <?php
 
+if (WPB_ACTIVE !== true) {
+
+  return;
+
+}
+
 $end_includes = array(
   'inc/end-constants.php',
   'inc/class-inits.php',
