@@ -71,7 +71,7 @@ function wpb_wp_url($file = '', $level = 0) {
 
   }
 
-  return $url;
+  return rtrim($url, '/');
 
 }
 
@@ -96,7 +96,9 @@ function wpb_root_dir($file = '', $level = 0) {
 
   }
 
-  return wpb_trailingslashit($path) . ltrim($file, '/');
+  $dir = wpb_trailingslashit($path) . ltrim($file, '/');
+
+  return rtrim($dir, '/');
 
 }
 

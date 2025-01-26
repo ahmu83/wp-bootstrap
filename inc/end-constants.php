@@ -6,8 +6,6 @@
  * 
  */
 
-// wpb_inc('inc/move-folders.php');
-
 define('WP_MEMORY_LIMIT', '512M');
 // wpb_maybe_define('WP_MEMORY_LIMIT', '512M');
 
