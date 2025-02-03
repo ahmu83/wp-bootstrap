@@ -103,11 +103,11 @@ The function `wpb_envs` in `inc/functions.php` retrieves environment details fro
 
 This allows for flexible handling of environment-specific configurations.
 
-### `src` folder
+### `./src` folder
 
 This folder serves as the PSR-4 autoload directory, used for organizing and loading classes automatically.
 
-### `src/WpDebug.php`
+### `./src/WpDebug.php`
 
 This file is an optional wrapper class for handling fatal errors in WordPress using the [Whoops library](https://filp.github.io/whoops/).
 
@@ -116,9 +116,28 @@ This file is an optional wrapper class for handling fatal errors in WordPress us
 
 Make sure to run `composer install` before enabling this feature.
 
+### `../app/src` folder
+
+In addition to the WpBootstrap namespace, another PSR-4 autoload directory is available in the app folder located in the document root. This folder can exist inside the `wp-content` directory or even one level above the web root.
+
+Currently, the `app` folder is replacing the default `wp-content` directory, and this is handled dynamically using the ``./src/MoveFolders.php` class.
+
+### `./src/MoveFolders.php`
+
+This class is responsible for adding custom directories for uploads, plugins, and themes. You can rename and relocate the uploads and plugins directories, but the themes folder can only be moved to a different location, it cannot be renamed. 
+
+To enable the custom uploads, plugins & themes folder you can uncomment the line `new WpBootstrap\MoveFolders(false);` in `./inc/class-inits.php` file, and then go to the `mu-plugins` folder and create a new file, such as MoveThemesFolder.php. Inside this file, add this line `new WpBootstrap\MoveFolders(true);` to apply the changes and set up the custom themes directory.
+
+
+This class is responsible for adding custom directories for uploads, plugins, and themes. You can rename and relocate the uploads and plugins directories, but the themes folder can only be moved to a different location; it cannot be renamed. 
+
+To enable the custom uploads, plugins & themes folder you can, uncomment the line `new WpBootstrap\MoveFolders(false);` in the `./inc/class-inits.php` file. Then, go to the `mu-plugins` folder and create a new file, such as `MoveThemesFolder.php`. Inside this file, add the line `new WpBootstrap\MoveFolders(true);` to apply the changes and set up the custom themes directory.
+
+You can modify the `./src/MoveFolders.php` file according to your needs and update the `$folder_names` array variable to match your desired custom folder names. This allows you to customize the locations of the uploads, plugins, and themes directories based on your preferred structure. You can also comment out specific parts of the class. i.e, if you only want to rename the wp-content folder while keeping the plugins and themes folders unchanged.
+
 ### `inc/class-inits.php`
 
-This file contains all class initializations, such as `WpBootstrap\WpDebug::get_instance()` or any other new classes added to the PSR-4 directory.
+This file contains all class initializations, such as WpBootstrap\WpDebug::get_instance() or any other new classes added to the PSR-4 directories defined in composer.json. It serves as a central place for managing and instantiating classes, ensuring they are properly loaded and available throughout the application.
 
 ### `inc/end-constants.php`
 

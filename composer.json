@@ -2,7 +2,8 @@
   "name": "ahmadkarim/wp-bootstrap",
   "autoload": {
     "psr-4": {
-      "WpBootstrap\\": "src"
+      "WpBootstrap\\": "src",
+      "App\\": "../app/src/"
     }
   },
   "authors": [
@@ -12,6 +13,7 @@
     }
   ],
   "require": {
-    "filp/whoops": "^2.16"
+    "filp/whoops": "^2.16",
+    "nikic/fast-route": "^1.3"
   }
 }
